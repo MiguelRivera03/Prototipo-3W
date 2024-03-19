@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const port = 3001;
 const cors = require('cors');
-const whiteList = ['http://localhost:3000']
 
 app.use(cors(
   { origin: true, credentials: true }));
