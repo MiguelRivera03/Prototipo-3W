@@ -4,17 +4,24 @@ admin:
   port: 9876
   host: localhost
 apiEndpoints:
-  helloworld:
+  welcomeMessage:
     host: localhost
-    path: '/hola-mundo'
+    path: '/mensajeBienvenida'
   
   weather:
     host: localhost
     paths: '/clima/:ciudad'
 
+  news:
+    host: localhost
+    paths: '/noticias/:category'
+
 serviceEndpoints:
-  helloWorldServices:
+  welcomeMessageServices:
     url: 'http://localhost:3001'
+
+  newsService:
+    url: 'http://localhost:3002'
 
   weatherService:
     url: 'http://localhost:3003'
@@ -29,14 +36,14 @@ policies:
   - proxy
   - rate-limit
 pipelines:
-  helloworldPipeline:
+  welcomeMessagePipeline:
     apiEndpoints:
-      - helloworld
+      - welcomeMessage
     policies:
       - cors:
       - proxy:
           - action:
-              serviceEndpoint: helloWorldServices
+              serviceEndpoint: welcomeMessageServices
               ignorePath:   false
               prependPath:   true
               stripPath:   true
@@ -57,3 +64,19 @@ pipelines:
       - log:
           - action:
               message: "Procesando solicitud de clima"
+  
+  newsPipeline:
+    apiEndpoints:
+      - news
+    policies:
+      - cors:
+      - proxy:
+          - action:
+              serviceEndpoint: newsService
+              ignorePath:   false
+              prependPath:   true
+              stripPath:   true
+              changeOrigin: true
+      - log:
+          - action:
+              message: "Procesando solicitud de noticias"

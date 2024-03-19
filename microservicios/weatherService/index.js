@@ -20,6 +20,7 @@ app.use(function (req, res, next) {
 const getClima = async (ciudad) => {
   const urlAPIClima = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=ce26a0bc0211a75ef010c41fc92639d6`;
   const respuesta = await axios.get(urlAPIClima);
+  console.log(respuesta.data)
   return respuesta.data;
 };
 

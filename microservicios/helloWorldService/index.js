@@ -18,7 +18,8 @@ app.use(function(req, res, next) {
 
 // Ruta de ejemplo
 app.get('/', (req, res) => {
-  res.send('Enviaste una peticion al microservicio por medio de la api GATEWAY c:');
+  const responseData = {msg: "Ejemplo microservicios y API Gateway"}
+  res.json(responseData);
 });
 
 

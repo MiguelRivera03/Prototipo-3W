@@ -105,3 +105,9 @@ a {
   align-self: center;
   margin-top: 40px;
 }
+
+.small-image {
+  width: 500px;
+  height: auto;
+  margin-top: 10px; 
+}
