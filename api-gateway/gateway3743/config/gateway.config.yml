@@ -7,9 +7,18 @@ apiEndpoints:
   helloworld:
     host: localhost
     path: '/hola-mundo'
+  
+  weather:
+    host: localhost
+    paths: '/api/clima/:ciudad'
+
 serviceEndpoints:
   helloWorldServices:
     url: 'http://localhost:3001'
+
+  weatherService:
+    url: 'http://localhost:2500'
+
 policies:
   - basic-auth
   - cors
@@ -31,3 +40,19 @@ pipelines:
               prependPath:   true
               stripPath:   true
               changeOrigin: true
+
+  weatherPipeline:
+    apiEndpoints:
+      - weather
+    policies:
+      - cors:
+      - proxy:
+          - action:
+              serviceEndpoint: clima_service
+              ignorePath:   false
+              prependPath:   true
+              stripPath:   true
+              changeOrigin: true
+      - log:
+          - action:
+              message: "Procesando solicitud de clima"
