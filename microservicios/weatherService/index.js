@@ -1,9 +1,20 @@
 const express = require('express');
 const axios = require('axios')
+const cors = require('cors');
 
 const app = express();
 const port = 3003;
 
+app.use(cors(
+  { origin: true, credentials: true }));
+
+app.use(express.json());
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); // Permite a cualquier origen
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // Función para obtener el clima
 const getClima = async (ciudad) => {
@@ -13,7 +24,7 @@ const getClima = async (ciudad) => {
 };
 
 // Ruta para obtener el clima de una ciudad
-app.get('/api/clima/:ciudad', async (req, res) => {
+app.get('/:ciudad', async (req, res) => {
   const ciudad = req.params.ciudad;
   const datosClima = await getClima(ciudad);
   if (datosClima.cod !== 200) {

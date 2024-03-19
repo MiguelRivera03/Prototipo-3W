@@ -10,14 +10,14 @@ apiEndpoints:
   
   weather:
     host: localhost
-    paths: '/api/clima/:ciudad'
+    paths: '/clima/:ciudad'
 
 serviceEndpoints:
   helloWorldServices:
     url: 'http://localhost:3001'
 
   weatherService:
-    url: 'http://localhost:2500'
+    url: 'http://localhost:3003'
 
 policies:
   - basic-auth
@@ -33,6 +33,7 @@ pipelines:
     apiEndpoints:
       - helloworld
     policies:
+      - cors:
       - proxy:
           - action:
               serviceEndpoint: helloWorldServices
@@ -48,7 +49,7 @@ pipelines:
       - cors:
       - proxy:
           - action:
-              serviceEndpoint: clima_service
+              serviceEndpoint: weatherService
               ignorePath:   false
               prependPath:   true
               stripPath:   true

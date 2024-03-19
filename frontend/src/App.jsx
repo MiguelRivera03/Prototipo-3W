@@ -1,8 +1,26 @@
 import './App.css'
+import axios from 'axios'
 
 import { useState, useEffect } from "react"
 
 const App = () => {
+
+  const [city, setCity] = useState('Tulua')
+  const [cityData, setCityData] = useState()
+
+  function getWeather() {
+    fetch(`http://localhost:3003/${city}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCityData(data)
+        console.log(data)
+      })
+  }
+
+  function handleCityChange(event) {
+    setCity(event.target.value)
+    console.log(city)
+  }
 
   return (
     <>
@@ -14,17 +32,32 @@ const App = () => {
           </div>
           <div id="ms1" className='ms'>
             <h2>Microservicio 1</h2>
-            <p>Este microservicio consulta una API de <a href="https://openweathermap.org" target="_blank">openweathermap</a> y simplifica la respuesta para trabajar solo con los datos importantes.</p>
+            <p>Este microservicio consulta una API de <a href="https://openweathermap.org" target="_blank">openweathermap</a> con información relevante del clima y la ubicación de la ciudad en el momento.</p>
             <div>
-              <select name="cities" id="cities">
+              <select name="cities" id="cities" onChange={(event) => handleCityChange(event)}>
                 <option value="Tulua">Tuluá</option>
                 <option value="Cali">Cali</option>
                 <option value="Bogota">Bogotá</option>
                 <option value="Medellin">Medellín</option>
               </select>
-              <button id='weather-button'>Consultar</button>
+              <button id='weather-button' onClick={getWeather}>Consultar</button>
             </div>
-            <textarea name="weather-response" id="weather-response" cols="30" rows="10"></textarea>
+            {cityData &&
+              <ul name="weather-response" id="weather-response">
+                <li>
+                  <strong>City:</strong> {cityData.name}
+                </li>
+                <li>
+                  <strong>Latitude:</strong> {cityData.coord.lat}
+                </li>
+                <li>
+                  <strong>Longitude:</strong> {cityData.coord.lon}
+                </li>
+                <li>
+                  <strong>Weather condition:</strong> {cityData.weather[0].description[0].toUpperCase()}{cityData.weather[0].description.substr(1)}
+                </li>
+              </ul>
+            }
           </div>
           <div id='separator'></div>
           <div id="ms2" className='ms'>
