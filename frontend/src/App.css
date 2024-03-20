@@ -25,6 +25,10 @@ a {
   color: rgb(42, 101, 210);
 }
 
+h2 {
+  margin-bottom: -5px;
+}
+
 #container {
   width: 100vw;
   height: 100vh;
@@ -60,10 +64,11 @@ a {
 }
 
 .ms {
-  flex-basis: auto;
-  flex-shrink: 1;
+  flex-basis: 32%;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   text-align: center;
   padding: 30px 20px;
   background-color: white;
@@ -107,7 +112,7 @@ a {
 }
 
 .small-image {
-  width: 500px;
+  width: 350px;
   height: auto;
-  margin-top: 10px; 
+  margin-top: 10px;
 }

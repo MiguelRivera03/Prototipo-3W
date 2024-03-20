@@ -69,24 +69,31 @@ const App = () => {
                 <option value="Cali">Cali</option>
                 <option value="Bogota">Bogotá</option>
                 <option value="Medellin">Medellín</option>
+                <option value="Cartagena">Cartagena</option>
               </select>
               <button id='weather-button' onClick={getWeather}>Consultar</button>
             </div>
             {cityData &&
-              <ul name="weather-response" id="weather-response">
-                <li>
-                  <strong>City:</strong> {cityData.name}
-                </li>
-                <li>
-                  <strong>Latitude:</strong> {cityData.coord.lat}
-                </li>
-                <li>
-                  <strong>Longitude:</strong> {cityData.coord.lon}
-                </li>
-                <li>
-                  <strong>Weather condition:</strong> {cityData.weather[0].description[0].toUpperCase()}{cityData.weather[0].description.substr(1)}
-                </li>
-              </ul>
+              <div>
+                <ul name="weather-response" id="weather-response">
+                  <li>
+                    <strong>City:</strong> {cityData.name}
+                  </li>
+                  <li>
+                    <strong>Latitude:</strong> {cityData.coord.lat}
+                  </li>
+                  <li>
+                    <strong>Longitude:</strong> {cityData.coord.lon}
+                  </li>
+                  <li>
+                    <strong>Temperature:</strong> {Math.round(cityData.main.temp - 273.15, 3)}°C
+                  </li>
+                  <li>
+                    <strong>Weather condition:</strong> {cityData.weather[0].description[0].toUpperCase()}{cityData.weather[0].description.substr(1)}
+                  </li>
+                </ul>
+                <img src={`https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=400&height=350&center=lonlat:${cityData.coord.lon},${cityData.coord.lat}&zoom=12.1401&apiKey=16d76475eeae493eaf47b79443984df8`} alt="" />
+              </div>
             }
           </div>
           <div id='separator'></div>
@@ -105,30 +112,30 @@ const App = () => {
               </select>
               <button id='weather-button' onClick={getnews}>Consultar</button>
             </div>
-            <div style={{ maxHeight: '600px', overflowY: 'auto' , marginTop: '10px' }}>
-            {newsData && newsData.map((news, index) => (
-              <ul key={index} name="weather-response" id="weather-response">
-                <li>
-                  <strong>Source:</strong> {news.source.name ? news.source.name : "Not available"}
-                </li>
-                <li>
-                  <strong>Published at:</strong> {news.publishedAt ? news.publishedAt : "Not available"}
-                </li>
-                <li>
-                  <strong>Author:</strong> {news.author ? news.author : "Not available"}
-                </li>
-                <li>
-                  <strong>Title:</strong> {news.title ? news.title : "Not available"}
-                </li>
-                <li>
-                  <strong>Description:</strong> {news.description ? news.description : "Not available"}
-                </li>
-                <li>
-                  {news.urlToImage ? <img src={news.urlToImage} className="small-image" alt="Image" /> : "Image not available"}
-                </li>
-              </ul>
-            ))}
-          </div>
+            <div style={{ maxHeight: '600px', overflowY: 'auto', marginTop: '10px' }}>
+              {newsData && newsData.map((news, index) => (
+                <ul key={index} name="weather-response" id="weather-response">
+                  <li>
+                    <strong>Source:</strong> {news.source.name ? news.source.name : "Not available"}
+                  </li>
+                  <li>
+                    <strong>Published at:</strong> {news.publishedAt ? news.publishedAt : "Not available"}
+                  </li>
+                  <li>
+                    <strong>Author:</strong> {news.author ? news.author : "Not available"}
+                  </li>
+                  <li>
+                    <strong>Title:</strong> {news.title ? news.title : "Not available"}
+                  </li>
+                  <li>
+                    <strong>Description:</strong> {news.description ? news.description : "Not available"}
+                  </li>
+                  <li>
+                    {news.urlToImage ? <img src={news.urlToImage} className="small-image" alt="Image" /> : "Image not available"}
+                  </li>
+                </ul>
+              ))}
+            </div>
           </div>
         </div>
       </div>
