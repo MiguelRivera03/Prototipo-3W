@@ -1,5 +1,7 @@
 # Prototipo de microservicios y api gateway
 
+***
+Aplicacion web con arquitectura de microservicios y api Gateway para la consulta de noticias y clima de ciudades utilizando openweathermap API y newsapi API.
 
 ## Las dependencias que se utilizaron por el momento:
 
@@ -20,6 +22,4 @@
 Esta dependencia nos permite utilizar una estructura de api, en la cual podemos añadir autenticaciones, politicas, proxy, etc. El archivo principal de esta configuracion es el gateway.config.yml.
 
 En ese arcivo podemos configurar nuestra api gateway, añadiendo los endpoints de cada microservicio.
-## avance hasta el momento
 
-Se tiene un prototipo que al enviar una peticion a la api gateway, esta sae contecta al microservicio y devuelve el mensaje que retorna el microservicio.
